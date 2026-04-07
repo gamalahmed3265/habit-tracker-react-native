@@ -1,24 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
+import { StatusBar } from "expo-status-bar";
+import "react-native-reanimated";
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: "(home)",
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
+    <>
+      <NativeTabs>
+        <NativeTabs.Trigger name="(home)">
+          <Label>Today</Label>
+          <Icon
+            sf={{
+              default: "checkmark.circle",
+              selected: "checkmark.circle.fill",
+            }}
+          />
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="(streaks)">
+          <Label>Streaks</Label>
+          <Icon sf={{ default: "flame", selected: "flame.fill" }} />
+        </NativeTabs.Trigger>
+      </NativeTabs>
       <StatusBar style="auto" />
-    </ThemeProvider>
+    </>
   );
 }
